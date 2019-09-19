@@ -56,7 +56,7 @@ def remove_near_null(im, near_null):
 if __name__ == "__main__":
     # Main apenas para debug
     image_path = "/Users/rafaelprado/Downloads/cps_df.tif"
-    output_path = "/Users/rafaelprado/Desktop/cps_df.csv"
+    output_path = "/Users/rafaelprado/Code/ImmMaps/MapPlot/Assets/input/_input.csv"
     print("Starting image processing...")
     df = tiff_to_dataframe(image_path)
     print("Image converted to dataframe.\nNow dumping output file...")
