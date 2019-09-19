@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using UnityEngine;
 
 class DataManager
 {
@@ -30,7 +29,9 @@ class DataManager
 
             int xCoord = int.Parse(separatedValues[0]);
             int yCoord = int.Parse(separatedValues[1]);
-            float value = float.Parse(separatedValues[2]);
+
+            float.TryParse(separatedValues[2], out float value);
+            
 
             xArray[i] = xCoord;
             yArray[i] = yCoord;
