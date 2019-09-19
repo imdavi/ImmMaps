@@ -9,7 +9,7 @@ public class MapManager : MonoBehaviour
     int length = 100;
     int depth = 20;
 
-    float scale = 20f;
+    float scale = 100f;
 
     // Start is called before the first frame update
     void Start()
