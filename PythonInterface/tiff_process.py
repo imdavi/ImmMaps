@@ -55,7 +55,10 @@ def remove_near_null(im, near_null):
 
 if __name__ == "__main__":
     # Main apenas para debug
-    print("Iniciando conversão")
-    image_path = "/Users/rafaelprado/Desktop/Mapas/cps_df.tif"
+    image_path = "/Users/rafaelprado/Downloads/cps_df.tif"
+    output_path = "/Users/rafaelprado/Desktop/cps_df.csv"
+    print("Starting image processing...")
     df = tiff_to_dataframe(image_path)
-    print(df)
+    print("Image converted to dataframe.\nNow dumping output file...")
+    df.to_csv(path_or_buf=output_path, index=False, header=False, sep=';')
+    print("Dumping complete!")
