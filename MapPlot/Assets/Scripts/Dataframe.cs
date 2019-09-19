@@ -18,8 +18,22 @@ class Dataframe
 
         for (int i = 0; i < x.Length; i++)
         { 
-            values[x[i], y[i]] = v[i];
+            values[x[i], y[i]] = v[i]/depth;
         }
     }
 
+    void RescaleValues(float scale)
+    {
+        int xSize = values.GetLength(0);
+        int ySize = values.GetLength(1);
+        
+        for(int i = 0; i < xSize; i++)
+        {
+            for(int j = 0; j < ySize; j++)
+            {
+                values[i, j] *= scale;
+            }
+        }
+
+    }
 }
