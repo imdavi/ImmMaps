@@ -12,11 +12,23 @@ def tiff_to_dataframe(path):
     # Creating the numpy array from image
     im = Image.open(path)
     im = np.array(im)
+
+    # Plot image using a "hot" color scale before processing
+    # plot = plt.imshow(im, cmap='hot')
+    # plt.colorbar()
+    # plt.show()
+
     # Obtains the minimal value of the entire array
     min_val = find_near_null(im)
 
     # Removes all near-null lines or columns from the image.
     im = remove_near_null(im, min_val)
+
+    # Plot image using a "hot" color scale
+    # plot = plt.imshow(im, cmap='hot')
+    # plt.colorbar()
+    # plt.show()
+
     # Swaps the near null values to None
     for i in range(len(im[0])):
         for j in range(len(im[:,0])):
