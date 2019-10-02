@@ -1,8 +1,16 @@
 ﻿using System.IO;
+using UnityEngine;
+using System.Linq;
 
 class DataManager
 {
-    public static Dataframe dataset;
+    private static Dataframe dataset;
+    public static Dataframe visibleDataset;
+
+    private static float maxFilter;
+    private static float minFilter;
+
+    private static bool newFilterApplied = false;
 
     /* Method: GenerateDataSetFromFile
      * Generates a float dataset from an input file.
@@ -39,6 +47,10 @@ class DataManager
         }
 
         dataset = new Dataframe(xArray, yArray, values);
+        visibleDataset = new Dataframe(xArray, yArray, values);
+
+        maxFilter = Mathf.CeilToInt(values.Max());
+        minFilter = Mathf.FloorToInt(values.Min());
     }
 
     /* Method: ReadFile
@@ -61,4 +73,65 @@ class DataManager
         }
     }
 
+    public static void ResetFilters()
+    {
+        maxFilter = dataset.maxValue;
+        minFilter = dataset.minValue;
+        visibleDataset = dataset;
+        newFilterApplied = true;
+    }
+
+    public static void FilterDataset()
+    {
+        Dataframe newDataframe = new Dataframe
+        {
+            width = dataset.width,
+            length = dataset.length,
+            depth = dataset.depth,
+            minValue = dataset.minValue,
+            maxValue = dataset.maxValue,
+            mean = dataset.mean
+        };
+
+        float [,] newValues = new float[dataset.width, dataset.length];
+
+        int xSize = dataset.values.GetLength(0);
+        int ySize = dataset.values.GetLength(1);
+
+        for (int i = 0; i < xSize; i++)
+        {
+            for (int j = 0; j < ySize; j++)
+            {
+                float value = dataset.values[i, j];
+                bool aboveMinFilter = value > minFilter / dataset.depth;
+                bool belowMaxFilter = value < maxFilter / dataset.depth;
+                newValues[i, j] = (aboveMinFilter && belowMaxFilter) ? value : 0.00f;
+            }
+        }
+
+        newDataframe.values = newValues;
+
+        visibleDataset = newDataframe;
+        newFilterApplied = true;
+    }
+
+    public static void SetMinFilter(float min)
+    {
+        minFilter = min;
+    }
+
+    public static void SetMaxFilter(float max)
+    {
+        maxFilter = max;
+    }
+
+    public static bool FilterApplied()
+    {
+        return newFilterApplied;
+    }
+
+    public static void FilteredVisualRendered()
+    {
+        newFilterApplied = false;
+    }
 }

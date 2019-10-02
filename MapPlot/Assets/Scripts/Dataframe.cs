@@ -7,12 +7,23 @@ class Dataframe
     public int length;
     public int depth;
     public float[,] values;
+    public float maxValue;
+    public float minValue;
+    public float mean;
+
+    public Dataframe()
+    {
+    }
 
     public Dataframe(int[] x, int[] y, float[] v)
     {
         width = x.Max()+1;
         length = y.Max()+1;
         depth = Mathf.CeilToInt(v.Max());
+
+        mean = v.Average();
+        maxValue = v.Max();
+        minValue = v.Min();
 
         values = new float[width, length];
 

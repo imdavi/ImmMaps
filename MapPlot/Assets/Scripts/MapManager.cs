@@ -15,10 +15,20 @@ public class MapManager : MonoBehaviour
     void Start()
     {
         Terrain map = GetComponent<Terrain>();
-        map.terrainData = ConfigureMap(map.terrainData, DataManager.dataset);
+        map.terrainData = UpdateTerrainData(map.terrainData, DataManager.visibleDataset);
     }
 
-    TerrainData ConfigureMap(TerrainData td, Dataframe ds = null)
+    private void Update()
+    {
+        if (DataManager.FilterApplied())
+        {
+            Terrain map = GetComponent<Terrain>();
+            map.terrainData = UpdateTerrainData(map.terrainData, DataManager.visibleDataset);
+            DataManager.FilteredVisualRendered();
+        }
+    }
+
+    private TerrainData UpdateTerrainData(TerrainData td, Dataframe ds = null)
     {
         float[,] heights;
         if (ds != null)
@@ -41,7 +51,7 @@ public class MapManager : MonoBehaviour
         return td;
     }
 
-    float[,] GenerateHeights()
+    private float[,] GenerateHeights()
     {
         float[,] heights = new float[width, length];
         for (int x=0; x<width; x++)
@@ -55,13 +65,12 @@ public class MapManager : MonoBehaviour
         return heights;
     }
 
-    float GetValue(int x, int y)
+    private float GetValue(int x, int y)
     {
         float xCoord = (float)x / width * scale;
         float yCoord = (float)y / length * scale;
 
         return Mathf.PerlinNoise(xCoord, yCoord);
     }
-
 
 }
