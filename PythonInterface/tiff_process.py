@@ -29,15 +29,14 @@ def tiff_to_dataframe(path):
     # plt.colorbar()
     # plt.show()
 
-    # Swaps the near null values to None
+    # Separates the arrays
     for i in range(len(im[0])):
         for j in range(len(im[:,0])):
-            # Coloca os valores em cada array 
             im_value.append(im[j,i])
             x_coordinates.append(j)
             y_coordinates.append(i)
 
-    # Conversao de numpy array para dataframe
+    # Converts numpy array to dataframe.
     x_array = np.array(x_coordinates)
     y_array = np.array(y_coordinates)
     values_array = np.array(im_value)
