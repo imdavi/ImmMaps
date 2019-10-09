@@ -29,6 +29,8 @@ def tiff_to_dataframe(path):
     # plt.colorbar()
     # plt.show()
 
+    Image.fromarray(im).save('./cps_df.tif')
+
     # Separates the arrays
     for i in range(len(im[0])):
         for j in range(len(im[:,0])):

@@ -15,6 +15,10 @@ public class FilterController : MonoBehaviour
         GameObject.Find("ApplyFilter_Button").GetComponentInChildren<Text>().text = "Apply filters";
         GameObject.Find("ResetFilter_Button").GetComponentInChildren<Text>().text = "Reset filters";
 
+        if(DataManager.visibleDataset == null)
+        {
+            return;
+        }
         maxTemp.maxValue = Mathf.CeilToInt(DataManager.visibleDataset.maxValue);
         maxTemp.minValue = Mathf.FloorToInt(DataManager.visibleDataset.minValue);
         maxTemp.value = DataManager.visibleDataset.maxValue;

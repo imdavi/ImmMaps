@@ -1,8 +1,9 @@
 ﻿using System.IO;
 using UnityEngine;
 using System.Linq;
+using System.Collections.Generic;
 
-class DataManager
+class DataManager : PlotterBehaviour
 {
     private static Dataframe dataset;
     public static Dataframe visibleDataset;
@@ -49,8 +50,8 @@ class DataManager
         dataset = new Dataframe(xArray, yArray, values);
         visibleDataset = new Dataframe(xArray, yArray, values);
 
-        maxFilter = Mathf.CeilToInt(values.Max());
-        minFilter = Mathf.FloorToInt(values.Min());
+        maxFilter = Mathf.CeilToInt(dataset.maxValue);
+        minFilter = Mathf.FloorToInt(dataset.minValue);
     }
 
     /* Method: ReadFile
@@ -133,5 +134,38 @@ class DataManager
     public static void FilteredVisualRendered()
     {
         newFilterApplied = false;
+    }
+
+    public override void PlotImage(ImageMessage imageMessage)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void PlotHeightmap(HeightmapMessage heightmapMessage)
+    {
+        Debug.Log("Heightmap received.");
+        var xList = new List<int>();
+        var yList = new List<int>();
+        var vList = new List<float>();
+
+        for (int i = 0; i < heightmapMessage.Heightmap.GetLength(0); i++)
+        {
+            for (int j = 0; j < heightmapMessage.Heightmap[0].GetLength(0); j++)
+            {
+                xList.Add(i);
+                yList.Add(j);
+                vList.Add(heightmapMessage.Heightmap[i][j]);
+        
+            }
+        }
+
+        dataset = new Dataframe(xList.ToArray(), yList.ToArray(), vList.ToArray());
+        visibleDataset = new Dataframe(xList.ToArray(), yList.ToArray(), vList.ToArray());
+
+        maxFilter = Mathf.CeilToInt(dataset.maxValue);
+        minFilter = Mathf.FloorToInt(dataset.minValue);
+
+        newFilterApplied = true;
+        Debug.Log("Finished loading dataset.");
     }
 }

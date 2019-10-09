@@ -8,7 +8,8 @@ public class MainClass : MonoBehaviour
 
     void Start()
     {
-        DataManager.GenerateDataSetFromFile("Assets/input/_input.csv");
+        Debug.Log("Loading dataset");
+        //DataManager.GenerateDataSetFromFile("Assets/input/_input.csv");
         mainCamera.enabled = true;
         mobileCam.enabled = false;
     }
