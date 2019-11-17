@@ -37,3 +37,13 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# PyCharm Project folder
+.idea
+
+# Sample folders for shapes and images
+_img
+_shapes 
+
+# Websocket cache folder
+__pycache__
