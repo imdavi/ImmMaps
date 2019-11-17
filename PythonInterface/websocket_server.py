@@ -26,6 +26,7 @@ _TYPE_IMAGE = 'image'
 _TYPE_HEIGHTMAP = 'heightmap'
 _TYPE_GET_HEIGHTMAP = 'get_heightmap'
 
+
 class ImmVisWebSocket(tornado.websocket.WebSocketHandler):
     image_path = None
     original_image = None
@@ -34,7 +35,7 @@ class ImmVisWebSocket(tornado.websocket.WebSocketHandler):
         self.load_image(image_path)
 
     def load_image(self, image_path=None):
-        self.image_path = image_path or './example_datasets/cps_df.tif'
+        self.image_path = image_path
 
         try:
             self.original_image = Image.open(self.image_path)
@@ -48,6 +49,7 @@ class ImmVisWebSocket(tornado.websocket.WebSocketHandler):
         print("WebSocket opened")
 
     def on_message(self, message):
+        print("On message started...")
         try:
             payload = json.loads(message)
         except:
@@ -72,12 +74,13 @@ class ImmVisWebSocket(tornado.websocket.WebSocketHandler):
             self.send_error_message(u'Unknown request type.')
 
     def send_original_image_heightmap(self):
-        if(self.original_image is not None):
+        if self.original_image is not None:
             self.send_image_heightmap(self.original_image)
         else:
             self.send_error_message(u'Image is not available')
     
     def send_image_heightmap(self, image):
+
         heightmap = np.asarray(image)
         width, height = image.size
 
@@ -90,11 +93,11 @@ class ImmVisWebSocket(tornado.websocket.WebSocketHandler):
                 _FIELD_HEIGHTMAP: heightmap
             }
         )
-
+        print("Sending heightmap...")
         self.write_message(response_message)
 
     def send_original_image(self):
-        if(self.original_image is not None):
+        if self.original_image is not None:
             self.send_image(self.original_image)
         else:
             self.send_error_message(u'Image is not available')
@@ -134,10 +137,13 @@ class ImmVisWebSocket(tornado.websocket.WebSocketHandler):
         print("WebSocket closed")
 
 
-def create_app(image_path=None):
-    return tornado.web.Application([
-        (r"/websocket", ImmVisWebSocket, {'image_path': image_path})
-    ])
+def create_app(message=None):
+    try:
+        return tornado.web.Application([
+            (r"/websocket", ImmVisWebSocket, message)
+        ])
+    except Exception as error:
+        raise Exception("MessageNotFound - "+str(error))
 
 
 class NumpyEncoder(json.JSONEncoder):
@@ -146,12 +152,22 @@ class NumpyEncoder(json.JSONEncoder):
             return obj.tolist()
         return json.JSONEncoder.default(self, obj)
 
-if __name__ == "__main__":
-    _PORT = 8888
 
-    app = create_app('/Users/rafaelprado/Code/ImmMaps/PythonInterface/cps_df.tif')
-    app.listen(str(_PORT))
+def start_server(message=None, port=8888):
+    socket = create_app(message)
+    socket.listen(port)
 
-    print("Starting server: http://localhost:" + str(_PORT) + "/")
+    print("Starting server: http://localhost:" + str(port) + "/")
 
     tornado.ioloop.IOLoop.current().start()
+
+
+if __name__ == "__main__":
+
+    img_path = "./_img/cps_df.tif"
+
+    message = {
+        'image_path': img_path
+    }
+
+    start_server(message)
