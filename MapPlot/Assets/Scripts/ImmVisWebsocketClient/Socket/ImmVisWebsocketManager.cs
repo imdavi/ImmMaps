@@ -23,7 +23,7 @@ public class ImmVisWebsocketManager : MonoBehaviour
             try
             {
                 var message = Message.FromJson(payload);
-
+                Debug.Log("Requesting message");
                 switch (message.Type)
                 {
                     case "image":

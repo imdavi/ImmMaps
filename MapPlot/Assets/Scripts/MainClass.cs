@@ -9,7 +9,7 @@ public class MainClass : MonoBehaviour
     void Start()
     {
         Debug.Log("Loading dataset");
-        //DataManager.GenerateDataSetFromFile("Assets/input/_input.csv");
+        //DataManager.GenerateDataSetFromFile(Application.dataPath+"/input/_input.csv");
         mainCamera.enabled = true;
         mobileCam.enabled = false;
     }

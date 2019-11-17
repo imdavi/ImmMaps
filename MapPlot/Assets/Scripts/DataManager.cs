@@ -165,7 +165,7 @@ class DataManager : PlotterBehaviour
         maxFilter = Mathf.CeilToInt(dataset.maxValue);
         minFilter = Mathf.FloorToInt(dataset.minValue);
 
-        newFilterApplied = true;
+        ResetFilters();
         Debug.Log("Finished loading dataset.");
     }
 }
