@@ -47,3 +47,6 @@ _shapes
 
 # Websocket cache folder
 __pycache__
+
+# Remove testbench code from repo
+testbench.*
