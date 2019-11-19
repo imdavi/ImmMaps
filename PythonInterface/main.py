@@ -1,8 +1,6 @@
-from tiff_process import tiff_to_dataframe
 from websocket.server import start_server
-import sys
 
-from websocket.Messages.TextMessage import TextMessage
+from websocket.UserMessages.TextMessage import TextMessage
 
 if __name__ == "__main__":
     messages = []
