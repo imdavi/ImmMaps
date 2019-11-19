@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
 
-class DataManager : PlotterBehaviour
+class DataManager : MonoBehaviour
 {
     private static Dataframe dataset;
     public static Dataframe visibleDataset;
@@ -136,7 +136,7 @@ class DataManager : PlotterBehaviour
         newFilterApplied = false;
     }
 
-    public override void PlotImage(ImageMessage imageMessage)
+    /*public override void PlotImage(ImageMessage imageMessage)
     {
         throw new System.NotImplementedException();
     }
@@ -167,5 +167,5 @@ class DataManager : PlotterBehaviour
 
         ResetFilters();
         Debug.Log("Finished loading dataset.");
-    }
+    }*/
 }
