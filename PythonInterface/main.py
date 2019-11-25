@@ -1,20 +1,35 @@
-from gis_manager import crop
-
 from websocket.Messages.UserMessages import TextMessage, HeightmapMessage
 from websocket.server import start_server
 
+from interface import App, AppDelegate
+
+from gis_manager import crop
+
+
+class Delegate(AppDelegate):
+
+    def __init__(self):
+        self.image_path = ""
+        self.shape_path = ""
+
+    def get_shape_path(self, file_path):
+        self.shape_path = file_path
+
+    def get_image_path(self, file_path):
+        self.image_path = file_path
+
+
 if __name__ == "__main__":
-    # root_path = "/Users/rafaelprado/Code/ImmMaps/PythonInterface/"
-    # img_path = root_path + "_img/"
-    # shp_path = root_path + "_shapes/"
-    #
-    # cps_shp_name = "Campinas.shp"
-    # img_original = "tempsurperf_30ago2018.tif"
-    #
-    # cropped_image = crop(image_file=img_path+img_original, shape_file=shp_path+cps_shp_name, heightmap=True)
+    delegate = Delegate()
+    application = App(delegate=delegate)
+
+    if delegate.shape_path != "" and delegate.shape_path != "":
+        cropped_image = crop(image_file=delegate.image_path, shape_file=delegate.shape_path, heightmap=True)
+    else:
+        raise Exception("Files not selected.")
 
     messages = []
     messages.append(TextMessage(text="Transmitting dataset..."))
-    # messages.append(HeightmapMessage(values=cropped_image))
+    messages.append(HeightmapMessage(values=cropped_image))
     start_server(message_list=messages)
 
