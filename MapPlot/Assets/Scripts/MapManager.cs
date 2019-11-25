@@ -33,7 +33,7 @@ public class MapManager : MonoBehaviour
         float[,] heights;
         if (ds != null)
         {
-            Debug.Log("Input generated map");
+            // Debug.Log("Input generated map");
             width = ds.width;
             length = ds.length;
             depth = ds.depth;
@@ -42,7 +42,7 @@ public class MapManager : MonoBehaviour
         else
         {
             heights = GenerateHeights();
-            Debug.Log("Noise generated map");
+            // Debug.Log("Noise generated map");
         }
         
         td.size = new Vector3(width, depth, length);

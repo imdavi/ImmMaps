@@ -12,6 +12,7 @@ public class SocketClient : MonoBehaviour
     {
         RegisterMessageTypes();
         InitializeWebsocketClient();
+        Debug.Log("Status after init: " + WebsocketManager.IsConnected);
     }
 
     private void InitializeWebsocketClient()
@@ -21,7 +22,7 @@ public class SocketClient : MonoBehaviour
             WebsocketManager.Connected += ClientConnected;
             WebsocketManager.MessageReceived += MessageReceived;
             WebsocketManager.InitializeClient();
-        }
+        }        
     }
 
     private void ClientConnected()
@@ -37,28 +38,16 @@ public class SocketClient : MonoBehaviour
         if(message is TextMessage)
         {
             Debug.Log((message as TextMessage).Text);
-        }   
+        }
+        //else if(message is HeightmapMessage)
+        //{
+        //    Debug.Log("Heightmap received");
+        //}
     }
-
-    /*private void DisplayHeightmap(HeightmapMessage heightmapMessage)
-    {
-        Debug.Log("Not implemented yet!");
-    }
-    private void DisplayImage(ImageMessage imageMessage)
-    {
-        Debug.Log("Render image!");
-        var spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
-        var texture = new Texture2D(2, 2);
-        texture.LoadImage(imageMessage.Bytes);
-
-        Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), new Vector2(0.5f, 0.5f));
-        spriteRenderer.sprite = sprite;
-    }*/
 
     private void RegisterMessageTypes()
     {
         //SerializationUtils.RegisterMessageType<HeightmapMessage>(HeightmapMessage.MessageType);
-        //SerializationUtils.RegisterMessageType<ImageMessage>(ImageMessage.MessageType);
         SerializationUtils.RegisterMessageType<TextMessage>(TextMessage.MessageType);
     }
 }

@@ -34,14 +34,14 @@ public class ImmVisWebsocketManager : UnityDispatcherBehaviour
     public void InitializeClient()
     {
         if (!IsConnected)
-        {
-            var url = ClientUrlBuilder.BuildServerUrl(ServerAddress, ServerPort, Path);
+        {            
+            var url = ClientUrlBuilder.BuildServerUrl(ServerAddress, ServerPort, Path);            
             webSocket = new WebSocket(url);
             webSocket.OnMessage += HandleWebsocketMessage;
             webSocket.OnOpen += HandleWebsocketOpened;
             webSocket.OnClose += HandleWebsocketClosed;
             webSocket.OnError += HandleWebsocketError;
-            webSocket.Connect();
+            webSocket.Connect();            
         }
     }
 
