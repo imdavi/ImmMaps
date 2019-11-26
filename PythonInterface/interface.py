@@ -11,7 +11,7 @@ class App:
     def __init__(self, delegate):
         self.delegate = delegate
 
-        self.app = Tk()
+        self.app = Tk(screenName="Select map data")
 
         self._shape_label = Label(self.app)
         self._image_label = Label(self.app)

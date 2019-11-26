@@ -4,42 +4,42 @@ from matplotlib import pyplot as plt
 import pandas as pd
 
 
-def tiff_to_dataframe(input_path, output_path=None, image_output=None):
+def tiff_to_dataframe(array, output_path=None, image_output=None):
     # Arrays used to setup Dataframe
     x_coordinates = []
     y_coordinates = []
     im_value = []
 
-    # Creating the numpy array from image
-    im = Image.open(input_path)
-    im = np.array(im)
-
-    # Plot image using a "hot" color scale before processing
-    # plot = plt.imshow(im, cmap='hot')
-    # plt.colorbar()
-    # plt.show()
-
-    # Obtains the minimal value of the entire array
-    min_val = find_near_null(im)
-
-    # Removes all near-null lines or columns from the image.
-    im = remove_near_null(im, min_val)
+    # # Creating the numpy array from image
+    # im = Image.open(input_path)
+    # im = np.array(im)
+    #
+    # # Plot image using a "hot" color scale before processing
+    # # plot = plt.imshow(im, cmap='hot')
+    # # plt.colorbar()
+    # # plt.show()
+    #
+    # # Obtains the minimal value of the entire array
+    # min_val = find_near_null(im)
+    #
+    # # Removes all near-null lines or columns from the image.
+    # im = remove_near_null(im, min_val)
 
     # Plot image using a "hot" color scale
     # plot = plt.imshow(im, cmap='hot')
     # plt.colorbar()
     # plt.show()
 
-    # Saves image to specified path
-    if image_output is not None:
-        Image.fromarray(im).save(image_output)
+    # # Saves image to specified path
+    # if image_output is not None:
+    #     Image.fromarray(im).save(image_output)
 
     # Generates dataframe
-    elif output_path is not None:
+    if output_path is not None:
         # Separates the arrays
-        for i in range(len(im[0])):
-            for j in range(len(im[:, 0])):
-                im_value.append(im[j, i])
+        for i in range(len(array[0])):
+            for j in range(len(array[:, 0])):
+                im_value.append(array[j, i])
                 x_coordinates.append(j)
                 y_coordinates.append(i)
 
@@ -51,7 +51,7 @@ def tiff_to_dataframe(input_path, output_path=None, image_output=None):
         dataframe = pd.DataFrame({'x': x_array, 'y': y_array, 'value': values_array})
         dataframe.to_csv(path_or_buf=output_path, index=False, header=False, sep=';')
 
-        return dataframe
+        # return dataframe
 
 
 def find_near_null(image):
