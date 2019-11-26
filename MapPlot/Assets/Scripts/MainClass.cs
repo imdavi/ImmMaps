@@ -8,6 +8,7 @@ public class MainClass : MonoBehaviour
 
     void Start()
     {
+        DataManager.GenerateDataSetFromFile("Assets/input/map_input.csv");
         mainCamera.enabled = true;
         mobileCam.enabled = false;
     }

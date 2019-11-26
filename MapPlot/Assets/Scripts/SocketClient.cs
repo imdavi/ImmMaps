@@ -12,7 +12,7 @@ public class SocketClient : MonoBehaviour
     {
         RegisterMessageTypes();
         InitializeWebsocketClient();
-        Debug.Log("Status after init: " + WebsocketManager.IsConnected);
+        //Debug.Log("Status after init: " + WebsocketManager.IsConnected);
     }
 
     private void InitializeWebsocketClient()

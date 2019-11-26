@@ -9,7 +9,7 @@ public class MapManager : MonoBehaviour
     int length = 100;
     int depth = 20;
 
-    float scale = 20f;
+    float scale = 20f; 
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +33,7 @@ public class MapManager : MonoBehaviour
         float[,] heights;
         if (ds != null)
         {
-            // Debug.Log("Input generated map");
+            Debug.Log("Input generated map");
             width = ds.width;
             length = ds.length;
             depth = ds.depth;
@@ -46,7 +46,7 @@ public class MapManager : MonoBehaviour
         }
         
         td.size = new Vector3(width, depth, length);
-        td.heightmapResolution = width + 1;
+        td.heightmapResolution = GetMapResolution(width, length);
         td.SetHeights(0, 0, heights);
         return td;
     }
@@ -71,6 +71,20 @@ public class MapManager : MonoBehaviour
         float yCoord = (float)y / length * scale;
 
         return Mathf.PerlinNoise(xCoord, yCoord);
+    }
+
+    private int GetMapResolution(int width, int length)
+    {
+        var high = width > length ? width : length;
+        float resolution;
+        var i = 0;
+        while (true)
+        {
+            resolution = Mathf.Pow(2, i);
+            if (resolution > high) break;
+            i += 1;
+        }
+        return Mathf.RoundToInt(resolution + 1);
     }
 
 }
