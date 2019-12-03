@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using System.Text;
 
 class DataManager : MonoBehaviour
 {
@@ -66,7 +67,7 @@ class DataManager : MonoBehaviour
     {
         if (File.Exists(file))
         {
-            return File.ReadAllLines(file);
+            return File.ReadAllLines(file, Encoding.UTF8);
         }
         else
         {

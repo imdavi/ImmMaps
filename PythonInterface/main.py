@@ -30,8 +30,8 @@ if __name__ == "__main__":
 
     tiff_to_dataframe(cropped_image, output_path="/Users/rafaelprado/Code/ImmMaps/MapPlot/assets/input/map_input.csv")
 
-    # messages = []
-    # messages.append(TextMessage(text="Transmitting dataset..."))
-    # messages.append(HeightmapMessage(values=cropped_image))
-    # start_server(message_list=messages)
+    messages = []
+    messages.append(TextMessage(text="Transmitting dataset..."))
+    messages.append(HeightmapMessage(values=cropped_image))
+    start_server(message_list=messages)
 

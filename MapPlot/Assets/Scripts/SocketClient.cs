@@ -39,10 +39,10 @@ public class SocketClient : MonoBehaviour
         {
             Debug.Log((message as TextMessage).Text);
         }
-        //else if(message is HeightmapMessage)
-        //{
-        //    Debug.Log("Heightmap received");
-        //}
+        else if (message is HeightmapMessage)
+        {
+            Debug.Log("Heightmap received");
+        }
     }
 
     private void RegisterMessageTypes()
