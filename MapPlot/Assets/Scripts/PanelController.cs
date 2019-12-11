@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/*
+Starts the text labels on the Panel.
+*/
+
 public class PanelController : MonoBehaviour
 {
     public Text maxValue;

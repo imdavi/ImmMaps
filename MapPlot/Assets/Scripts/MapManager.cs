@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+This class defines the behaviour of the terrain component.
+*/
 public class MapManager : MonoBehaviour
 {
 
@@ -30,6 +33,7 @@ public class MapManager : MonoBehaviour
 
     private TerrainData UpdateTerrainData(TerrainData td, Dataframe ds = null)
     {
+        // updates the terrain object and sets all its properties
         float[,] heights;
         if (ds != null)
         {
@@ -44,7 +48,8 @@ public class MapManager : MonoBehaviour
             heights = GenerateHeights();
             // Debug.Log("Noise generated map");
         }
-        
+
+        // sets the heigthmap of the terrain
         td.size = new Vector3(width, depth, length);
         td.heightmapResolution = GetMapResolution(width, length);
         td.SetHeights(0, 0, heights);

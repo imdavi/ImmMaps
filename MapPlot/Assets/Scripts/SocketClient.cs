@@ -44,7 +44,7 @@ public class SocketClient : MonoBehaviour
             Debug.Log("Heightmap received");
         }
     }
-
+    // This method defines all serializable messages
     private void RegisterMessageTypes()
     {
         //SerializationUtils.RegisterMessageType<HeightmapMessage>(HeightmapMessage.MessageType);

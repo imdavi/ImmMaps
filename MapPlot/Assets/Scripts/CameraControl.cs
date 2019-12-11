@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class CameraControl : MonoBehaviour
 {
 
@@ -72,19 +73,19 @@ public class CameraControl : MonoBehaviour
     private Vector3 GetBaseInput()
     { //returns the basic values, if it's 0 than it's not active.
         Vector3 p_Velocity = new Vector3();
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.W) || Input.GetKeyDown("joystick button 5"))
         {
             p_Velocity += new Vector3(0, 0, 1);
         }
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.S) || Input.GetKeyDown("joystick button 6"))
         {
             p_Velocity += new Vector3(0, 0, -1);
         }
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || Input.GetKeyDown("joystick button 7"))
         {
             p_Velocity += new Vector3(-1, 0, 0);
         }
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || Input.GetKeyDown("joystick button 8"))
         {
             p_Velocity += new Vector3(1, 0, 0);
         }
@@ -92,7 +93,8 @@ public class CameraControl : MonoBehaviour
     }
 
     public static void Toggle()
-    {
+    {   
+        // Swaps the camera movement
         cameraMovementOn = !cameraMovementOn;
     }
 

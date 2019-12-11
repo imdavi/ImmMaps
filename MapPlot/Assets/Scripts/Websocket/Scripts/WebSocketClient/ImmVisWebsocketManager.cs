@@ -6,13 +6,20 @@ using Newtonsoft.Json;
 using UnityEngine;
 using WebSocketSharp;
 
+// Defines the behaviour of the websocket client
+
 public class ImmVisWebsocketManager : UnityDispatcherBehaviour
 {
+    // Holds the server adress string
     public string ServerAddress;
+    // Holds the server port
     public int ServerPort;
+    // Holds the path
     public string Path;
+    // websocket object
     private WebSocket webSocket;
 
+    // Returns the connection status
     public bool IsConnected
     {
         get
@@ -25,12 +32,10 @@ public class ImmVisWebsocketManager : UnityDispatcherBehaviour
     public event ClientErrorAction Error;
     public event MessageReceivedAction MessageReceived;
     public event RawMessageReceivedAction RawMessageReceived;
-
     void OnApplicationQuit()
     {
         ReleaseClient();
     }
-
     public void InitializeClient()
     {
         if (!IsConnected)

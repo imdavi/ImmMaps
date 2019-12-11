@@ -4,6 +4,10 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
+/*
+This class defines all methods to instantiate datasets and to generate the filters.
+*/
+
 class DataManager : MonoBehaviour
 {
     private static Dataframe dataset;
@@ -137,36 +141,4 @@ class DataManager : MonoBehaviour
         newFilterApplied = false;
     }
 
-    /*public override void PlotImage(ImageMessage imageMessage)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void PlotHeightmap(HeightmapMessage heightmapMessage)
-    {
-        Debug.Log("Heightmap received.");
-        var xList = new List<int>();
-        var yList = new List<int>();
-        var vList = new List<float>();
-
-        for (int i = 0; i < heightmapMessage.Heightmap.GetLength(0); i++)
-        {
-            for (int j = 0; j < heightmapMessage.Heightmap[0].GetLength(0); j++)
-            {
-                xList.Add(i);
-                yList.Add(j);
-                vList.Add(heightmapMessage.Heightmap[i][j]);
-        
-            }
-        }
-
-        dataset = new Dataframe(xList.ToArray(), yList.ToArray(), vList.ToArray());
-        visibleDataset = new Dataframe(xList.ToArray(), yList.ToArray(), vList.ToArray());
-
-        maxFilter = Mathf.CeilToInt(dataset.maxValue);
-        minFilter = Mathf.FloorToInt(dataset.minValue);
-
-        ResetFilters();
-        Debug.Log("Finished loading dataset.");
-    }*/
 }

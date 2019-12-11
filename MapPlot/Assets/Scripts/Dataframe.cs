@@ -1,6 +1,11 @@
 ﻿using System.Linq;
 using UnityEngine;
 
+/*
+This class defines a data structure to hold the values of the array.
+Also holds a few parameters obtained from the array as the width, length etc.
+*/
+
 class Dataframe
 {
     public int width;
@@ -17,6 +22,7 @@ class Dataframe
 
     public Dataframe(int[] x, int[] y, float[] v)
     {
+        // Initializes a dataframe populating all parameters.
         width = x.Max()+1;
         length = y.Max()+1;
         depth = Mathf.CeilToInt(v.Max());
