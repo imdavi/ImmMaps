@@ -1,5 +1,11 @@
 from websocket.Messages.Message import Message
 
+"""
+This file holds classes of the custom messages to be sent to the receiving socket.
+Each of the classes must extend from message.
+Also, all message types must be defined on the top section of the file.
+"""
+
 HEIGHTMAP_TYPE = 'heightmap'
 TEXT_TYPE = 'text'
 

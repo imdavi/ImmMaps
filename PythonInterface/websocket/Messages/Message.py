@@ -2,7 +2,9 @@ import json
 
 _FIELD_TYPE = 'type'
 
-
+"""
+This class defines the minimum parameters for a message to have and necessary to be interpreted by the receiver.
+"""
 class Message:
     message_type = None
     data_dict = None
