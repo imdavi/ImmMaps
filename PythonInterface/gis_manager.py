@@ -1,9 +1,9 @@
 # Library Imports
 import geopandas as gpd
 import rasterio as rio
-import numpy as np
 import os
 import gdal
+import numpy as np
 
 # Path for holding temporary files
 temp_path = os.path.dirname(os.path.abspath(__file__)) + "/_temp/"

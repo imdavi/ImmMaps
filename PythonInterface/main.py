@@ -1,8 +1,8 @@
-from websocket.Messages.UserMessages import TextMessage, HeightmapMessage
-from websocket.server import start_server
-
 from interface import App, AppDelegate
 from gis_manager import crop
+
+import numpy as np
+import pandas as pd
 
 """
 Implements the App Delegate protocol to set the file paths.
@@ -59,10 +59,4 @@ if __name__ == "__main__":
     else:
         raise Exception("Files not selected.")
 
-    array_to_file(cropped_image, output_path="/Users/rafaelprado/Code/ImmMaps/MapPlot/assets/input/map_input.csv")
-
-    # messages = []
-    # messages.append(TextMessage(text="Transmitting dataset..."))
-    # messages.append(HeightmapMessage(values=cropped_image))
-    # start_server(message_list=messages)
-
+    array_to_file(cropped_image, output_path="C:\\Users\\<SEU_USUARIO>\\<PASTA_CLONE_REPOSITORIO>\\ImmMaps\\MapPlot\\Assets\\input\\_input.csv")

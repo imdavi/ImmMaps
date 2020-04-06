@@ -50,3 +50,4 @@ __pycache__
 
 # Remove testbench code from repo
 testbench.*
+.vscode/
