@@ -65,3 +65,36 @@ Imagem .TIF contendo a cidade de Campinas: [Download img_satelite.tif](https://d
 
 OBS: o conjunto de arquivos *shapefile* dentro do zip precisa estar no mesmo diretório para que as bibliotecas do Python consigam adquirir todos os metadados corretamente.
 OBS2: por conter metadados, a imagem de satelite é bem pesada (aprox 200mb).
+
+---
+## Utilizando Websocket para transferir as informações
+
+A ideia desta implementação é realizar uma comunicação mais robusta entre o módulo Python e o Unity.
+Utilizando este método, é possível transferir os dados tratados sem utilizar um arquivo intermediário para fazer a ponte entre os dois "sistemas".
+
+Para isso, é necessário instalar uma nova biblioteca ao python.
+IMPORTANTE: ESTA BIBLIOTECA DEVE SER ADICIONADA DEPOIS DE INSTALAR TODOS OS COMPONENTES ANTERIORES.
+
+```conda install tornado```
+
+Após a instalação da biblioteca Tornado, é necessário adicionar uma correção em um dos arquivos principais para que o programa funcione.
+
+Adicione as seguintes linhas de código logo após as importações do arquivo *ioloop.py* da biblioteca tornado.
+
+``` 
+if 'win' in sys.platform:
+        print('Redefining asyncio loop for Windows protocol.')
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+```
+
+Este procedimento é necessário uma vez que a implementação dos loops assíncronos no Windows possui algumas diferenças para sistemas UNIX, criando a necessidade de explicitar o uso do sistema operacional.
+
+**Nota:**
+
+Para acessar o arquivo correto, abra o arquivo *server.py* deste projeto em um editor com suporte para Python (Visual Studio Code ou PyCharm).
+
+Em seguida, vá até a última linha da função *start_server*:
+
+    tornado.ioloop.IOLoop.current().start()
+
+Dê um CTRL + Click em *ioloop* para abrir a definição do pacote. O módulo *ioloop.py* deve aparecer em uma nova aba. Adicione as linhas de código acima e salve.
