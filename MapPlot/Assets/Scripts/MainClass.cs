@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainClass : MonoBehaviour
 {
@@ -9,10 +10,11 @@ public class MainClass : MonoBehaviour
     void Start()
     {
         //string filepath = "Assets/input/map_input.csv";
-        string filepath = Application.dataPath + "/input/map_input.csv";
+        // string filepath = Application.dataPath + "/input/map_input.csv";
         // Initializes the dataset from a file on the application default path
-        DataManager.GenerateDataSetFromFile(filepath);
+        // DataManager.GenerateDataSetFromFile(filepath);
         // Sets the status of the cameras.
+
         mainCamera.enabled = true;
         mobileCam.enabled = false;
     }

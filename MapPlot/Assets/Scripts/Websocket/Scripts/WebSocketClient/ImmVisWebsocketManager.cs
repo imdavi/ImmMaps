@@ -48,6 +48,7 @@ public class ImmVisWebsocketManager : UnityDispatcherBehaviour
             webSocket.OnError += HandleWebsocketError;
             webSocket.Connect();            
         }
+        
     }
 
     public void ReleaseClient()

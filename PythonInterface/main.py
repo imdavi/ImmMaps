@@ -4,6 +4,9 @@ from gis_manager import crop
 import numpy as np
 import pandas as pd
 
+from websocket.server import start_server
+from websocket.Messages.UserMessages import TextMessage, HeightmapMessage
+
 """
 Implements the App Delegate protocol to set the file paths.
 """
@@ -20,33 +23,6 @@ class Delegate(AppDelegate):
         self.image_path = file_path
 
 
-def array_to_file(array, output_path=None):
-    """
-    Converts the array to a dataframe and saves it to a file.
-    """
-    # Arrays used to setup Dataframe
-    x_coordinates = []
-    y_coordinates = []
-    im_value = []
-
-    # Generates dataframe
-    if output_path is not None:
-        # Separates the arrays
-        for i in range(len(array[0])):
-            for j in range(len(array[:, 0])):
-                im_value.append(array[j, i])
-                x_coordinates.append(j)
-                y_coordinates.append(i)
-
-        # Converts numpy array to dataframe.
-        x_array = np.array(x_coordinates)
-        y_array = np.array(y_coordinates)
-        values_array = np.array(im_value)
-
-        dataframe = pd.DataFrame({'x': x_array, 'y': y_array, 'value': values_array})
-        dataframe.to_csv(path_or_buf=output_path, index=False, header=False, sep=';')
-
-
 if __name__ == "__main__":
     # Initializes the delegate object
     delegate = Delegate()
@@ -58,5 +34,16 @@ if __name__ == "__main__":
         cropped_image = crop(image_file=delegate.image_path, shape_file=delegate.shape_path, heightmap=False)
     else:
         raise Exception("Files not selected.")
+    
+    print("Starting websocket server...")
+    messages = []
 
-    array_to_file(cropped_image, output_path="C:\\Users\\<SEU_USUARIO>\\<PASTA_CLONE_REPOSITORIO>\\ImmMaps\\MapPlot\\Assets\\input\\_input.csv")
+    # Initialize message containing heightmap.
+    hmap = HeightmapMessage(values=cropped_image)
+    # Initialize text message to print after transmitting heightmap.
+    txt_msg = TextMessage("Heightmap trasmitted successfuly.")
+    # Append messages to list.
+    messages.append(hmap)
+    messages.append(txt_msg)
+    # Starting server
+    start_server(messages)

@@ -103,7 +103,7 @@ def _remove_values(im, near_null):
     for i in range(len(img[0])):
         for j in range(len(img[:, 0])):
             if img[j, i] == near_null:
-                img[j, i] = np.nan
+                img[j, i] = 0.0
     return img
 
 

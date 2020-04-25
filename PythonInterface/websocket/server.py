@@ -56,6 +56,7 @@ class _ImmVisWebSocket(tornado.websocket.WebSocketHandler):
             for message in self.message_list:
                 print("Sending message...")
                 self.write_message(message.to_json())
+                print("Message sent!")
     # method called to send an error message
     def send_error_message(self, cause):
         message = ErrorMessage(cause=cause)

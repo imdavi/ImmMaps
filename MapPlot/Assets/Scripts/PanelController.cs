@@ -11,15 +11,21 @@ public class PanelController : MonoBehaviour
     public Text minValue;
     public Text meanValue;
 
-    // Start is called before the first frame update
-    void Start()
+    private bool firstLoad = true;
+
+    private void Update()
     {
         if (DataManager.visibleDataset == null)
         {
             return;
         }
-        maxValue.text = DataManager.visibleDataset.maxValue.ToString(format: "n2");
-        minValue.text = DataManager.visibleDataset.minValue.ToString(format: "n2");
-        meanValue.text = DataManager.visibleDataset.mean.ToString(format: "n2");
+        if (firstLoad)
+        {
+            firstLoad = false;
+            maxValue.text = DataManager.visibleDataset.maxValue.ToString(format: "n2");
+            minValue.text = DataManager.visibleDataset.minValue.ToString(format: "n2");
+            meanValue.text = DataManager.visibleDataset.mean.ToString(format: "n2");
+        }
+
     }
 }

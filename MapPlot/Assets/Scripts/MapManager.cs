@@ -36,8 +36,7 @@ public class MapManager : MonoBehaviour
         // updates the terrain object and sets all its properties
         float[,] heights;
         if (ds != null)
-        {
-            Debug.Log("Input generated map");
+        { 
             width = ds.width;
             length = ds.length;
             depth = ds.depth;
@@ -45,8 +44,7 @@ public class MapManager : MonoBehaviour
         }
         else
         {
-            heights = GenerateHeights();
-            // Debug.Log("Noise generated map");
+            return new TerrainData();
         }
 
         // sets the heigthmap of the terrain
@@ -54,28 +52,6 @@ public class MapManager : MonoBehaviour
         td.heightmapResolution = GetMapResolution(width, length);
         td.SetHeights(0, 0, heights);
         return td;
-    }
-
-    private float[,] GenerateHeights()
-    {
-        float[,] heights = new float[width, length];
-        for (int x=0; x<width; x++)
-        {
-            for(int y=0; y < length; y++)
-            {
-                heights[x, y] = GetValue(x, y);
-            }
-        }
-
-        return heights;
-    }
-
-    private float GetValue(int x, int y)
-    {
-        float xCoord = (float)x / width * scale;
-        float yCoord = (float)y / length * scale;
-
-        return Mathf.PerlinNoise(xCoord, yCoord);
     }
 
     private int GetMapResolution(int width, int length)

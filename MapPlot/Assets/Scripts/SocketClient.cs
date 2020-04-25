@@ -12,7 +12,7 @@ public class SocketClient : MonoBehaviour
     {
         RegisterMessageTypes();
         InitializeWebsocketClient();
-        //Debug.Log("Status after init: " + WebsocketManager.IsConnected);
+        Debug.Log("Status after init: " + WebsocketManager.IsConnected);
     }
 
     private void InitializeWebsocketClient()
@@ -41,13 +41,14 @@ public class SocketClient : MonoBehaviour
         }
         else if (message is HeightmapMessage)
         {
-            Debug.Log("Heightmap received");
+            Debug.Log("Heightmap received. Starting processing...");
+            DataManager.ReadDatasetFromMessage((message as HeightmapMessage));
         }
     }
     // This method defines all serializable messages
     private void RegisterMessageTypes()
     {
-        //SerializationUtils.RegisterMessageType<HeightmapMessage>(HeightmapMessage.MessageType);
+        SerializationUtils.RegisterMessageType<HeightmapMessage>(HeightmapMessage.MessageType);
         SerializationUtils.RegisterMessageType<TextMessage>(TextMessage.MessageType);
     }
 }
